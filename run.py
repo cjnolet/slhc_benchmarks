@@ -15,7 +15,8 @@ def time_train(dataset_name, model, X, env):
 def main(argv):
     dataset_name = ''
     env = ''
-    opts, args = getopt.getopt(argv, "hd:e:", ["dataset=", "env="])
+    n_clusters = 2
+    opts, args = getopt.getopt(argv, "hc:d:e:", ["dataset=", "env=", "clusters="])
     for opt, arg in opts:
         if opt == "-h":
             print("run.py -d <dataset> -e <device|host|both>\n")
@@ -25,18 +26,22 @@ def main(argv):
             dataset_name = arg
         elif opt in ("-e", "--env"):
             env = arg
+        elif opt in ("-c", "--clusters"):
+            print(str(arg))
+            n_clusters = int(str(arg))
 
     print("Dataset: %s" % dataset_name)
     print("Env: %s" % env)
+    print("Clusters: %s" % n_clusters)
 
     D, dim = get_dataset(dataset_name)
     X_train, X_test = dataset_transform(D)
 
     if env == "device" or env == "both":
-        time_train(dataset_name, cuAgg(linkage="single"), X_train, env)
+        time_train(dataset_name, cuAgg(linkage="single", n_clusters=n_clusters), X_train, env)
 
     if env == "host" or env == "both":
-        time_train(dataset_name, skAgg(linkage="single"), X_train, env)
+        time_train(dataset_name, skAgg(linkage="single", n_clusters=n_clusters), X_train, env)
 
 if __name__ == "__main__":
     main(sys.argv[1:])
