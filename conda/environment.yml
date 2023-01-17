@@ -1,0 +1,20 @@
+channels:
+  - rapidsai
+  - rapidsai-nightly
+  - nvidia
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.8
+  - cuml=22.12*
+  - h5py
+  - scikit-learn
+  - cudatoolkit=11.6
+  - python-wget
+  - cupy=9*
+  - cmake
+  - jupyterlab
+  - ipykernel
+  - wget
+  - ipykernel
+  - jupyterlab
