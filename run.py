@@ -33,10 +33,10 @@ def main(argv):
     X_train, X_test = dataset_transform(D)
 
     if env == "device" or env == "both":
-        time_train(dataset_name, cuAgg(linkage="single"), X_train, env)
+        time_train(dataset_name, cuAgg(linkage="single"), X_train, "device")
 
     if env == "host" or env == "both":
-        time_train(dataset_name, skAgg(linkage="single"), X_train, env)
+        time_train(dataset_name, skAgg(linkage="single"), X_train, "host")
 
 if __name__ == "__main__":
     main(sys.argv[1:])
